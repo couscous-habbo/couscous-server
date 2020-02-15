@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Couscous.Console", "Couscous.Console\Couscous.Console.csproj", "{58AD4A9A-10FC-47A7-84F1-D191DF470663}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{58AD4A9A-10FC-47A7-84F1-D191DF470663}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58AD4A9A-10FC-47A7-84F1-D191DF470663}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58AD4A9A-10FC-47A7-84F1-D191DF470663}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58AD4A9A-10FC-47A7-84F1-D191DF470663}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
