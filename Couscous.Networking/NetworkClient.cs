@@ -1,20 +1,21 @@
 using System;
-using System.Diagnostics;
+using System.Buffers.Binary;
 using System.IO;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-using Couscous.Networking.Helpers;
 
 namespace Couscous.Networking
 {
     public class NetworkClient : IDisposable
     {
         private readonly TcpClient _tcpClient;
+        private readonly NetworkStream _networkStream;
         
         public NetworkClient(TcpClient tcpClient)
         {
             _tcpClient = tcpClient;
+            _networkStream = tcpClient.GetStream();
         }
 
         public void StartReceiving()
@@ -27,11 +28,11 @@ namespace Couscous.Networking
             while (true)
             {
                 using var br = new BinaryReader(new MemoryStream(await GetBinaryDataAsync()));
-                var messageLength = NetworkHelpers.DecodeInt(br.ReadBytes(4));
+                var messageLength = BinaryPrimitives.ReadInt32BigEndian(br.ReadBytes(4));
                 var packetData = br.ReadBytes(messageLength);
 
                 using var br2 = new BinaryReader(new MemoryStream(packetData));
-                var packetId = NetworkHelpers.DecodeShort(br2.ReadBytes(2));
+                var packetId = BinaryPrimitives.ReadInt16BigEndian(br2.ReadBytes(2));
 
                 if (packetId == 26979)
                 {
@@ -49,7 +50,7 @@ namespace Couscous.Networking
             var buffer = new byte[2048];
             var memoryStream = new MemoryStream();
         
-            var bytesRead = await _tcpClient.GetStream().ReadAsync(buffer, 0, buffer.Length);
+            var bytesRead = await _networkStream.ReadAsync(buffer, 0, buffer.Length);
 
             while (bytesRead > 0)
             {
@@ -62,7 +63,7 @@ namespace Couscous.Networking
 
         private async Task WriteToStreamAsync(byte[] data)
         {
-            await _tcpClient.GetStream().WriteAsync(data, 0, data.Length);
+            await _networkStream.WriteAsync(data, 0, data.Length);
         }
 
         public void Dispose()

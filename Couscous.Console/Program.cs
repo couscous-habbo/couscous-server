@@ -15,7 +15,8 @@ namespace Couscous.Console
                 new TcpListener(IPAddress.Any, 1232),
                 new List<NetworkClient>()
             );
-            
+
+            networkHandler.StartListener();
             networkHandler.ListenAsync();
 
             while (true)

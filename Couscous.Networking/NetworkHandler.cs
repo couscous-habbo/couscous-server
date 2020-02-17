@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
+using System.Threading.Tasks;
 
 namespace Couscous.Networking
 {
@@ -12,12 +13,15 @@ namespace Couscous.Networking
         public NetworkHandler(TcpListener listener, IList<NetworkClient> clients)
         {
             _listener = listener;
-            _listener.Start();
-            
             _clients = clients;
         }
 
-        public async void ListenAsync()
+        public void StartListener()
+        {
+            _listener.Start();
+        }
+
+        public async Task ListenAsync()
         {
             while (true)
             {
