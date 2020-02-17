@@ -1,8 +1,10 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using Couscous.Networking.Helpers;
 
 namespace Couscous.Networking
 {
@@ -15,17 +17,23 @@ namespace Couscous.Networking
             _tcpClient = tcpClient;
         }
 
-        public async void StartReceiving()
+        public void StartReceiving()
         {
-            await ProcessDataAsync();
+            Task.Run(ProcessDataAsync);
         }
 
         private async Task ProcessDataAsync()
         {
             while (true)
             {
-                var binaryData = await GetBinaryDataAsync();
-                Console.WriteLine(Encoding.Default.GetString(binaryData));
+                using var br = new BinaryReader(new MemoryStream(await GetBinaryDataAsync()));
+                var messageLength = NetworkHelpers.DecodeInt(br.ReadBytes(4));
+                var packetData = br.ReadBytes(messageLength);
+
+                using var br2 = new BinaryReader(new MemoryStream(packetData));
+                var packetId = NetworkHelpers.DecodeShort(br2.ReadBytes(2));
+
+                Console.WriteLine(packetId);
             }
         }
         
