@@ -33,7 +33,14 @@ namespace Couscous.Networking
                 using var br2 = new BinaryReader(new MemoryStream(packetData));
                 var packetId = NetworkHelpers.DecodeShort(br2.ReadBytes(2));
 
-                Console.WriteLine(packetId);
+                if (packetId == 26979)
+                {
+                    await WriteToStreamAsync(Encoding.Default.GetBytes("<?xml version=\"1.0\"?>\r\n<!DOCTYPE cross-domain-policy SYSTEM \"/xml/dtds/cross-domain-policy.dtd\">\r\n<cross-domain-policy>\r\n<policy-file-request/><allow-access-from domain=\"*\" to-ports=\"*\" />\r\n</cross-domain-policy>\0)"));
+                }
+                else
+                {
+                    Console.WriteLine(packetId);
+                }
             }
         }
         
@@ -51,6 +58,11 @@ namespace Couscous.Networking
             }
 
             return memoryStream.ToArray();
+        }
+
+        private async Task WriteToStreamAsync(byte[] data)
+        {
+            await _tcpClient.GetStream().WriteAsync(data, 0, data.Length);
         }
 
         public void Dispose()
