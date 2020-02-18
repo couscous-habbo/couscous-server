@@ -2,6 +2,8 @@
 using System.Net;
 using System.Net.Sockets;
 using Couscous.Networking;
+using Couscous.Networking.Packets.Client;
+using Couscous.Networking.Packets.Client.Handshake;
 
 namespace Couscous.Console
 {
@@ -11,9 +13,17 @@ namespace Couscous.Console
         {
             System.Console.WriteLine("Hello World!");
 
+            var packets = new Dictionary<int, IClientPacket>
+            {
+                { 4000, new ReceiveClientVersionPacket( )}
+            };
+
+            var packetHandler = new ClientPacketHandler(packets);
+            
             var networkHandler = new NetworkHandler(
                 new TcpListener(IPAddress.Any, 1232),
-                new List<NetworkClient>()
+                new List<NetworkClient>(),
+                packetHandler
             );
 
             networkHandler.StartListener();

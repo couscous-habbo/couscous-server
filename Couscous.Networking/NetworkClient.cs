@@ -4,18 +4,21 @@ using System.IO;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using Couscous.Networking.Packets.Client;
 
 namespace Couscous.Networking
 {
-    public class NetworkClient : IDisposable
+    public class NetworkClient
     {
         private readonly TcpClient _tcpClient;
         private readonly NetworkStream _networkStream;
+        private readonly ClientPacketHandler _packetHandler;
         
-        public NetworkClient(TcpClient tcpClient)
+        public NetworkClient(TcpClient tcpClient, ClientPacketHandler packetHandler)
         {
             _tcpClient = tcpClient;
             _networkStream = tcpClient.GetStream();
+            _packetHandler = packetHandler;
         }
 
         public void StartReceiving()
@@ -40,7 +43,13 @@ namespace Couscous.Networking
                 }
                 else
                 {
-                    Console.WriteLine(packetId);
+                    if (!_packetHandler.TryGetPacket(packetId, out var packet))
+                    {
+                        Console.WriteLine("Unhandled packet: " + packetId);
+                        return;
+                    }
+
+                    packet.Process(this, new ClientPacketData());
                 }
             }
         }
