@@ -18,12 +18,12 @@ namespace Couscous.Console
                 { 4000, new ReceiveClientVersionPacket( )}
             };
 
-            var packetHandler = new ClientPacketHandler(packets);
+            var packetProvider = new ClientPacketProvider(packets);
             
             var networkHandler = new NetworkHandler(
                 new TcpListener(IPAddress.Any, 1232),
                 new List<NetworkClient>(),
-                packetHandler
+                packetProvider
             );
 
             networkHandler.StartListener();

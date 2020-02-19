@@ -2,11 +2,11 @@ using System.Collections.Generic;
 
 namespace Couscous.Networking.Packets.Client
 {
-    public class ClientPacketHandler
+    public class ClientPacketProvider
     {
         private readonly Dictionary<int, IClientPacket> _packets;
 
-        public ClientPacketHandler(Dictionary<int, IClientPacket> packets)
+        public ClientPacketProvider(Dictionary<int, IClientPacket> packets)
         {
             _packets = packets;
         }

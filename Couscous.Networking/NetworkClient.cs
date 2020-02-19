@@ -12,13 +12,13 @@ namespace Couscous.Networking
     {
         private readonly TcpClient _tcpClient;
         private readonly NetworkStream _networkStream;
-        private readonly ClientPacketHandler _packetHandler;
+        private readonly ClientPacketProvider _packetProvider;
         
-        public NetworkClient(TcpClient tcpClient, ClientPacketHandler packetHandler)
+        public NetworkClient(TcpClient tcpClient, ClientPacketProvider packetProvider)
         {
             _tcpClient = tcpClient;
             _networkStream = tcpClient.GetStream();
-            _packetHandler = packetHandler;
+            _packetProvider = packetProvider;
         }
 
         public void StartReceiving()
@@ -43,13 +43,13 @@ namespace Couscous.Networking
                 }
                 else
                 {
-                    if (!_packetHandler.TryGetPacket(packetId, out var packet))
+                    if (!_packetProvider.TryGetPacket(packetId, out var packet))
                     {
                         Console.WriteLine("Unhandled packet: " + packetId);
                         return;
                     }
 
-                    packet.Process(this, new ClientPacketData());
+                    packet.Process(this, new ClientPacketReader(packetData));
                 }
             }
         }
