@@ -10,13 +10,13 @@ namespace Couscous.Networking
     {
         private readonly TcpListener _listener;
         private readonly IList<NetworkClient> _clients;
-        private readonly ClientPacketHandler _packetHandler;
+        private readonly ClientPacketProvider _packetProvider;
 
-        public NetworkHandler(TcpListener listener, IList<NetworkClient> clients, ClientPacketHandler packetHandler)
+        public NetworkHandler(TcpListener listener, IList<NetworkClient> clients, ClientPacketProvider packetProvider)
         {
             _listener = listener;
             _clients = clients;
-            _packetHandler = packetHandler;
+            _packetProvider = packetProvider;
         }
 
         public void StartListener()
@@ -29,7 +29,7 @@ namespace Couscous.Networking
             while (true)
             {
                 var tcpClient = await _listener.AcceptTcpClientAsync();
-                var networkClient = new NetworkClient(tcpClient, _packetHandler);
+                var networkClient = new NetworkClient(tcpClient, _packetProvider);
                 
                 _clients.Add(networkClient);
 

@@ -52,7 +52,7 @@ namespace Couscous.Networking
                     var dataAfterLength = new byte[packetData.Length - 2];
                     Buffer.BlockCopy(packetData, 2, dataAfterLength, 0, packetData.Length - 2);
 
-                    packet.Process(this, new ClientPacketReader(dataAfterLength));
+                    packet.Handle(this, new ClientPacketReader(dataAfterLength));
                 }
             }
         }

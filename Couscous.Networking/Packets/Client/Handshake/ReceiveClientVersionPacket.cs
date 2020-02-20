@@ -4,9 +4,9 @@ namespace Couscous.Networking.Packets.Client.Handshake
 {
     public class ReceiveClientVersionPacket : IClientPacket
     {
-        public void Process(NetworkClient client, ClientPacketData packet)
+        public void Handle(NetworkClient client, ClientPacketReader reader)
         {    
-            Console.WriteLine("ReceiveClientVersionPacket");
+            Console.WriteLine("Client version: " + reader.ReadString());
         }
     }
 }
