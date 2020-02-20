@@ -21,6 +21,11 @@ namespace Couscous.Networking.Packets.Client
 
         private byte[] ReadBytes(int bytes)
         {
+            if (bytes > _packetData.Length - _packetPosition)
+            {
+                bytes = _packetData.Length - _packetPosition;
+            }
+            
             var data = new byte[bytes];
 
             for (var i = 0; i < bytes; i++)
