@@ -39,6 +39,11 @@ namespace Couscous.Networking
 
         public void Dispose()
         {
+            foreach (var client in _clients)
+            {
+                client.Dispose();
+            }
+            
             _listener.Stop();
         }
     }
