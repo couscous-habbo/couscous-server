@@ -11,11 +11,9 @@ namespace Couscous.Console
     {
         private static void Main(string[] args)
         {
-            System.Console.WriteLine("Hello World!");
-
             var packets = new Dictionary<int, IClientPacket>
             {
-                { 4000, new ReceiveClientVersionPacket( )}
+                { ClientPacketIds.ReceiveClientVersionPacket, new ReceiveClientVersionPacket( )}
             };
 
             var packetProvider = new ClientPacketProvider(packets);
@@ -26,8 +24,8 @@ namespace Couscous.Console
                 packetProvider
             );
 
-            networkHandler.StartListener();
-            networkHandler.ListenAsync();
+            var server = new Server(networkHandler);
+            server.Start();
 
             while (true)
             {
