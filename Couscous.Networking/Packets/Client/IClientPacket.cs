@@ -1,7 +1,9 @@
+using System.Threading.Tasks;
+
 namespace Couscous.Networking.Packets.Client
 {
     public interface IClientPacket
     {
-        void Handle(NetworkClient client, ClientPacketReader reader);
+        Task HandleAsync(NetworkClient client, ClientPacketReader reader);
     }
 }

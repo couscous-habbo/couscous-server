@@ -13,7 +13,8 @@ namespace Couscous.Console
         {
             var packets = new Dictionary<int, IClientPacket>
             {
-                { ClientPacketIds.ReceiveClientVersionPacket, new ReceiveClientVersionPacket( )}
+                { ClientPacketIds.ReceiveClientVersionPacket, new ReceiveClientVersionPacket() },
+                { ClientPacketIds.RequestEncryptionKeysPacket, new RequestEncryptionKeysPacket() }
             };
 
             var packetProvider = new ClientPacketProvider(packets);

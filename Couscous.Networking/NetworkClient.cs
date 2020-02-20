@@ -52,7 +52,7 @@ namespace Couscous.Networking
                     var dataAfterLength = new byte[packetData.Length - 2];
                     Buffer.BlockCopy(packetData, 2, dataAfterLength, 0, packetData.Length - 2);
 
-                    packet.Handle(this, new ClientPacketReader(dataAfterLength));
+                    await packet.HandleAsync(this, new ClientPacketReader(dataAfterLength));
                 }
             }
         }
@@ -73,7 +73,7 @@ namespace Couscous.Networking
             return memoryStream.ToArray();
         }
 
-        private async Task WriteToStreamAsync(byte[] data)
+        public async Task WriteToStreamAsync(byte[] data)
         {
             await _networkStream.WriteAsync(data, 0, data.Length);
         }
