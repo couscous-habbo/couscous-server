@@ -49,7 +49,10 @@ namespace Couscous.Networking
                         return;
                     }
 
-                    packet.Process(this, new ClientPacketReader(packetData));
+                    var dataAfterLength = new byte[packetData.Length - 2];
+                    Buffer.BlockCopy(packetData, 2, dataAfterLength, 0, packetData.Length - 2);
+
+                    packet.Process(this, new ClientPacketReader(dataAfterLength));
                 }
             }
         }
