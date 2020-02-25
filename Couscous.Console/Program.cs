@@ -4,17 +4,20 @@ using System.Net.Sockets;
 using Couscous.Networking;
 using Couscous.Networking.Packets.Client;
 using Couscous.Networking.Packets.Client.Handshake;
+using Couscous.Networking.Packets.Client.Tracking;
 
 namespace Couscous.Console
 {
     internal static class Program
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
             var packets = new Dictionary<int, IClientPacket>
             {
-                { ClientPacketIds.ReceiveClientVersionPacket, new ReceiveClientVersionPacket() },
-                { ClientPacketIds.RequestEncryptionKeysPacket, new RequestEncryptionKeysPacket() }
+                { ClientPacketId.ReceiveClientVersionPacket, new ReceiveClientVersionPacket() },
+                { ClientPacketId.RequestEncryptionKeysPacket, new RequestEncryptionKeysPacket() },
+                { ClientPacketId.ReceiveUniqueMachineIdPacket, new ReceiveUniqueMachineIdPacket() },
+                { ClientPacketId.PerformanceLogPacket, new PerformanceLogPacket() }
             };
 
             var packetProvider = new ClientPacketProvider(packets);

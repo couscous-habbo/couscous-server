@@ -37,23 +37,28 @@ namespace Couscous.Networking
                 using var br2 = new BinaryReader(new MemoryStream(packetData));
                 var packetId = BinaryPrimitives.ReadInt16BigEndian(br2.ReadBytes(2));
 
-                if (packetId == 26979)
-                {
-                    await WriteToStreamAsync(Encoding.Default.GetBytes("<?xml version=\"1.0\"?>\r\n<!DOCTYPE cross-domain-policy SYSTEM \"/xml/dtds/cross-domain-policy.dtd\">\r\n<cross-domain-policy>\r\n<policy-file-request/><allow-access-from domain=\"*\" to-ports=\"*\" />\r\n</cross-domain-policy>\0)"));
-                }
-                else
-                {
-                    if (!_packetProvider.TryGetPacket(packetId, out var packet))
-                    {
-                        Console.WriteLine("Unhandled packet: " + packetId);
-                        return;
-                    }
+                await HandleIncomingPacket(packetData, packetId);
+            }
+        }
 
-                    var dataAfterLength = new byte[packetData.Length - 2];
-                    Buffer.BlockCopy(packetData, 2, dataAfterLength, 0, packetData.Length - 2);
-
-                    await packet.HandleAsync(this, new ClientPacketReader(dataAfterLength));
+        private async Task HandleIncomingPacket(byte[] packetData, int packetId)
+        {
+            if (packetId == 26979)
+            {
+                await WriteToStreamAsync(Encoding.Default.GetBytes("<?xml version=\"1.0\"?>\r\n<!DOCTYPE cross-domain-policy SYSTEM \"/xml/dtds/cross-domain-policy.dtd\">\r\n<cross-domain-policy>\r\n<policy-file-request/><allow-access-from domain=\"*\" to-ports=\"*\" />\r\n</cross-domain-policy>\0)"));
+            }
+            else
+            {
+                if (!_packetProvider.TryGetPacket(packetId, out var packet))
+                {
+                    Console.WriteLine("Unhandled packet: " + packetId);
+                    return;
                 }
+
+                var dataAfterLength = new byte[packetData.Length - 2];
+                Buffer.BlockCopy(packetData, 2, dataAfterLength, 0, packetData.Length - 2);
+
+                await packet.HandleAsync(this, new ClientPacketReader(dataAfterLength));
             }
         }
         

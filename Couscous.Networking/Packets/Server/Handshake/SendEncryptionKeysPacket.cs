@@ -1,11 +1,13 @@
+using System;
+using Peach.Communication.Encryption;
+
 namespace Couscous.Networking.Packets.Server.Handshake
 {
     public class SendEncryptionKeysPacket : ServerPacketBuilder
     {
-        public SendEncryptionKeysPacket() : base(3531)
+        public SendEncryptionKeysPacket() : base(0)
         {
-            WriteString("");
-            WriteString("");
+            throw new NotImplementedException();
         }
     }
 }
