@@ -4,11 +4,11 @@ namespace Couscous.Game
 {
     public class GameProvider
     {
-        public PlayerProvider PlayerProvider;
+        public PlayerHandler PlayerHandler;
 
-        public GameProvider(PlayerProvider playerProvider)
+        public GameProvider(PlayerHandler playerHandler)
         {
-            PlayerProvider = playerProvider;
+            PlayerHandler = playerHandler;
         }
     }
 }

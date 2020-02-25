@@ -5,16 +5,23 @@ namespace Couscous.Networking.Packets.Client.Handshake
 {
     public class SecureLoginPacket : IClientPacket
     {
-        private readonly PlayerProvider _playerProvider;
+        private readonly PlayerHandler _playerHandler;
         
-        public SecureLoginPacket(PlayerProvider playerProvider)
+        public SecureLoginPacket(PlayerHandler playerHandler)
         {
-            _playerProvider = playerProvider;
+            _playerHandler = playerHandler;
         }
         
         public async Task HandleAsync(NetworkClient client, ClientPacketReader reader)
         {
-            client.Player = await _playerProvider.GetPlayerBySsoTicketAsync(reader.ReadString());
+            client.Player = await _playerHandler.GetPlayerBySsoTicketAsync(reader.ReadString());
+
+            if (client.Player == null)
+            {
+                return;
+            }
+
+            _playerHandler.TryRegisterPlayer(client.Player);
         }
     }
 }

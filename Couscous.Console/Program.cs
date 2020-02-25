@@ -31,7 +31,7 @@ namespace Couscous.Console
             
             var playerDao = new PlayerDao(databaseProvider);
             var playerRepository = new PlayerRepository(playerDao);
-            var playerProvider = new PlayerProvider(playerRepository);
+            var playerProvider = new PlayerHandler(playerRepository);
             var gameProvider = new GameProvider(playerProvider);
             
             var packets = new Dictionary<int, IClientPacket>

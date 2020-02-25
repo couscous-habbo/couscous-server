@@ -18,5 +18,10 @@ namespace Couscous.Game.Players
         {
             return await _playerDao.GetPlayerBySsoTicketAsync(ssoTicket);
         }
+
+        public bool TryRegisterPlayer(Player player)
+        {
+            return _players.TryAdd(player.Id, player);
+        }
     }
 }
