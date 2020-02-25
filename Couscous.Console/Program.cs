@@ -14,10 +14,10 @@ namespace Couscous.Console
         {
             var packets = new Dictionary<int, IClientPacket>
             {
-                { ClientPacketId.ReceiveClientVersionPacket, new ReceivedClientVersionPacket() },
-                { ClientPacketId.RequestEncryptionKeysPacket, new RequestEncryptionKeysPacket() },
-                { ClientPacketId.ReceiveUniqueMachineIdPacket, new ReceivedUniqueMachineIdPacket() },
-                { ClientPacketId.PerformanceLogPacket, new PerformanceLogPacket() }
+                { ClientPacketId.ReceiveClientVersion, new ReceivedClientVersionPacket() },
+                { ClientPacketId.RequestEncryptionKeys, new RequestEncryptionKeysPacket() },
+                { ClientPacketId.ReceiveUniqueMachineId, new ReceivedUniqueMachineIdPacket() },
+                { ClientPacketId.PerformanceLog, new PerformanceLogPacket() },
             };
 
             var packetProvider = new ClientPacketProvider(packets);

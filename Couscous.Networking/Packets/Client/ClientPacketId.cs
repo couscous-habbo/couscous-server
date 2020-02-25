@@ -2,9 +2,9 @@ namespace Couscous.Networking.Packets.Client
 {
     public struct ClientPacketId
     {
-        public const int ReceiveClientVersionPacket = 4000;
-        public const int RequestEncryptionKeysPacket = 1053;
-        public const int ReceiveUniqueMachineIdPacket = 2490;
-        public const int PerformanceLogPacket = 3230;
+        public const int ReceiveClientVersion = 4000;
+        public const int RequestEncryptionKeys = 1053;
+        public const int ReceiveUniqueMachineId = 2490;
+        public const int PerformanceLog = 3230;
     }
 }
