@@ -1,14 +1,18 @@
+using Couscous.Logging;
 using MySql.Data.MySqlClient;
 
 namespace Couscous.Database
 {
     public class DatabaseConnection
     {
+        private readonly ILogger _logger;
         private readonly MySqlConnection _connection;
         private readonly MySqlCommand _command;
 
-        public DatabaseConnection(MySqlConnection connection, MySqlCommand command)
+        public DatabaseConnection(ILogger logger, MySqlConnection connection, MySqlCommand command)
         {
+            _logger = logger;
+            
             _connection = connection;    
             _command = command;
             
@@ -29,7 +33,7 @@ namespace Couscous.Database
             }
             catch (MySqlException me)
             {
-                // @TODO - Log some kind of exception here?
+                _logger.Exception(me);
             }
         }
     }

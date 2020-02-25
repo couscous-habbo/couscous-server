@@ -1,3 +1,4 @@
+using Couscous.Logging;
 using MySql.Data.MySqlClient;
 
 namespace Couscous.Database
@@ -16,7 +17,7 @@ namespace Couscous.Database
             var connection = new MySqlConnection(_connectionString);
             var command = connection.CreateCommand();
             
-            return new DatabaseConnection(connection, command);
+            return new DatabaseConnection(LogFactory.GetLogger(typeof(DatabaseConnection)), connection, command);
         }
 
         public bool IsConnected()
