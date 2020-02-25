@@ -88,6 +88,8 @@ namespace Couscous.Networking
 
         public void Dispose()
         {
+            Player?.Dispose();
+            
             _tcpClient.Dispose();
         }
     }

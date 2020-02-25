@@ -21,7 +21,10 @@ namespace Couscous.Networking.Packets.Client.Handshake
                 return;
             }
 
-            _playerHandler.TryRegisterPlayer(client.Player);
+            if (!_playerHandler.TryRegisterPlayer(client.Player))
+            {
+                client.Dispose();
+            }
         }
     }
 }
