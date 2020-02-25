@@ -21,7 +21,7 @@ namespace Couscous.Game.Players
         
         public bool TryRegisterPlayer(Player player)
         {
-            _playerRepository.TryRegisterPlayer(player);
+            return _playerRepository.TryRegisterPlayer(player);
         }
     }
 }
