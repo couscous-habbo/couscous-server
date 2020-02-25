@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Couscous.Game", "Couscous.G
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Couscous.Database", "Couscous.Database\Couscous.Database.csproj", "{E1A8F8BA-89C7-4AD5-B89C-9670E4239E4B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Couscous.Logging", "Couscous.Logging\Couscous.Logging.csproj", "{B8008BCE-11BA-428E-ABF5-7A0B88912866}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{E1A8F8BA-89C7-4AD5-B89C-9670E4239E4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1A8F8BA-89C7-4AD5-B89C-9670E4239E4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1A8F8BA-89C7-4AD5-B89C-9670E4239E4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8008BCE-11BA-428E-ABF5-7A0B88912866}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8008BCE-11BA-428E-ABF5-7A0B88912866}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8008BCE-11BA-428E-ABF5-7A0B88912866}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8008BCE-11BA-428E-ABF5-7A0B88912866}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
