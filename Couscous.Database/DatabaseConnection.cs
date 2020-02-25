@@ -14,5 +14,23 @@ namespace Couscous.Database
             
             _connection.Open();
         }
+
+        public void SetQuery(string commandText)
+        {
+            _command.Parameters.Clear();
+            _command.CommandText = commandText;
+        }
+
+        public void ExecuteQuery()
+        {
+            try
+            {
+                _command.ExecuteNonQuery();
+            }
+            catch (MySqlException me)
+            {
+                // @TODO - Log some kind of exception here?
+            }
+        }
     }
 }
