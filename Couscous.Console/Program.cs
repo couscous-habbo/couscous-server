@@ -40,7 +40,7 @@ namespace Couscous.Console
                 { ClientPacketId.RequestEncryptionKeys, new RequestEncryptionKeysPacket() },
                 { ClientPacketId.ReceiveUniqueMachineId, new ReceivedUniqueMachineIdPacket() },
                 { ClientPacketId.PerformanceLog, new PerformanceLogPacket() },
-                { ClientPacketId.SecureLogin, new SecureLoginPacket(playerRepository) }
+                { ClientPacketId.SecureLogin, new SecureLoginPacket(playerProvider) }
             };
 
             var packetProvider = new ClientPacketProvider(packets);
