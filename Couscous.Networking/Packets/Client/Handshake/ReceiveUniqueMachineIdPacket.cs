@@ -8,7 +8,7 @@ namespace Couscous.Networking.Packets.Client.Handshake
     {
         public async Task HandleAsync(NetworkClient client, ClientPacketReader reader)
         {
-            await client.WriteToStreamAsync(new ReceivedUniqueMachineIdPacket(reader.ReadString()).GetBytes());
+            await client.WriteToStreamAsync(new SendUniqueMachineIdPacket(reader.ReadString()).GetBytes());
         }
     }
 }
