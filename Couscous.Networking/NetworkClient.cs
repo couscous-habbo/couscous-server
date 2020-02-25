@@ -4,12 +4,15 @@ using System.IO;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using Couscous.Game.Players;
 using Couscous.Networking.Packets.Client;
 
 namespace Couscous.Networking
 {
     public class NetworkClient
     {
+        public Player Player;
+        
         private readonly TcpClient _tcpClient;
         private readonly NetworkStream _networkStream;
         private readonly ClientPacketProvider _packetProvider;
