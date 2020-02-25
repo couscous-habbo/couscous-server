@@ -4,17 +4,17 @@ namespace Couscous.Console
 {
     public class Server
     {
-        private readonly NetworkHandler _networkHandler;
+        private readonly NetworkListener _networkListener;
         
-        public Server(NetworkHandler networkHandler)
+        public Server(NetworkListener networkListener)
         {
-            _networkHandler = networkHandler;
+            _networkListener = networkListener;
         }
 
         public void Start()
         {
-            _networkHandler.StartListener();
-            _networkHandler.ListenAsync();
+            _networkListener.StartListener();
+            _networkListener.ListenAsync();
         }
     }
 }

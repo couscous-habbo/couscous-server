@@ -19,7 +19,7 @@ namespace Couscous.Console
 
             var packetProvider = new ClientPacketProvider(packets);
             
-            var networkHandler = new NetworkHandler(
+            var networkHandler = new NetworkListener(
                 new TcpListener(IPAddress.Any, 1232),
                 new List<NetworkClient>(),
                 packetProvider

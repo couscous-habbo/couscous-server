@@ -6,13 +6,13 @@ using Couscous.Networking.Packets.Client;
 
 namespace Couscous.Networking
 {
-    public class NetworkHandler : IDisposable
+    public class NetworkListener : IDisposable
     {
         private readonly TcpListener _listener;
         private readonly IList<NetworkClient> _clients;
         private readonly ClientPacketProvider _packetProvider;
 
-        public NetworkHandler(TcpListener listener, IList<NetworkClient> clients, ClientPacketProvider packetProvider)
+        public NetworkListener(TcpListener listener, IList<NetworkClient> clients, ClientPacketProvider packetProvider)
         {
             _listener = listener;
             _clients = clients;
