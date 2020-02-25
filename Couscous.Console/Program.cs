@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using Couscous.Config;
@@ -51,7 +50,7 @@ namespace Couscous.Console
             var packetProvider = new ClientPacketProvider(packets);
             
             var networkHandler = new NetworkListener(
-                new TcpListener(IPAddress.Any, 1232),
+                new TcpListener(IPAddress.Any, int.Parse(configProvider.GetValueFromKey("networking.port"))),
                 new List<NetworkClient>(),
                 packetProvider
             );
