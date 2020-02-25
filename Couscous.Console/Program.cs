@@ -18,6 +18,7 @@ namespace Couscous.Console
                 { ClientPacketId.RequestEncryptionKeys, new RequestEncryptionKeysPacket() },
                 { ClientPacketId.ReceiveUniqueMachineId, new ReceivedUniqueMachineIdPacket() },
                 { ClientPacketId.PerformanceLog, new PerformanceLogPacket() },
+                { ClientPacketId.SecureLogin, new SecureLoginPacket() }
             };
 
             var packetProvider = new ClientPacketProvider(packets);
