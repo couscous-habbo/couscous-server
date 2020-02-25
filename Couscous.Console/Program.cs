@@ -14,9 +14,9 @@ namespace Couscous.Console
         {
             var packets = new Dictionary<int, IClientPacket>
             {
-                { ClientPacketId.ReceiveClientVersionPacket, new ReceiveClientVersionPacket() },
+                { ClientPacketId.ReceiveClientVersionPacket, new ReceivedClientVersionPacket() },
                 { ClientPacketId.RequestEncryptionKeysPacket, new RequestEncryptionKeysPacket() },
-                { ClientPacketId.ReceiveUniqueMachineIdPacket, new ReceiveUniqueMachineIdPacket() },
+                { ClientPacketId.ReceiveUniqueMachineIdPacket, new ReceivedUniqueMachineIdPacket() },
                 { ClientPacketId.PerformanceLogPacket, new PerformanceLogPacket() }
             };
 
