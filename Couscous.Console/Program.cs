@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using Couscous.Config;
 using Couscous.Database;
 using Couscous.Game;
 using Couscous.Game.Players;
@@ -17,13 +18,17 @@ namespace Couscous.Console
     {
         private static void Main()
         {
+            var configProvider = new ConfigProvider();
+            
+            configProvider.Load("http://tiny.cc/zo6gkz"); // cba :(
+            
             var connectionString = new MySqlConnectionStringBuilder
             {
-                Database = "habbo",
-                Password = "secret",
-                Port = 3306,
-                Server = "127.0.0.1",
-                UserID = "root",
+                Database = configProvider.GetValueFromKey("database.name"),
+                Password = configProvider.GetValueFromKey("database.password"),
+                Port = uint.Parse(configProvider.GetValueFromKey("database.port")),
+                Server = configProvider.GetValueFromKey("database.host"),
+                UserID = configProvider.GetValueFromKey("database.username"),
                 SslMode = MySqlSslMode.None
             }.ToString();
             
