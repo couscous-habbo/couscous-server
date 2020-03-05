@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Couscous.Game.Players;
+using Couscous.Networking.Packets.Server.Handshake;
 
 namespace Couscous.Networking.Packets.Client.Handshake
 {
@@ -14,7 +15,14 @@ namespace Couscous.Networking.Packets.Client.Handshake
         
         public async Task HandleAsync(NetworkClient client, ClientPacketReader reader)
         {
-            client.Player = await _playerHandler.GetPlayerBySsoTicketAsync(reader.ReadString());
+            var sso = reader.ReadString();
+
+            if (string.IsNullOrEmpty(sso)) 
+            {
+                return;
+            }
+
+            client.Player = await _playerHandler.GetPlayerBySsoTicketAsync(sso);
 
             if (client.Player == null)
             {
@@ -25,6 +33,10 @@ namespace Couscous.Networking.Packets.Client.Handshake
             {
                 client.Dispose();
             }
+            
+            // TODO: Check if the user is banned
+
+            await client.WriteToStreamAsync(new Server.Handshake.SecureLoginPacket().GetBytes());
         }
     }
 }
