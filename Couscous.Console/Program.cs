@@ -59,7 +59,7 @@ namespace Couscous.Console
                 networkHandler
             );
 
-            var server = new Server(networkListener);
+            var server = new Server(networkListener, gameProvider);
             server.Start();
 
             while (true)

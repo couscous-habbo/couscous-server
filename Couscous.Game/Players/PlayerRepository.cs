@@ -1,9 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Couscous.Game.Players
 {
-    public class PlayerRepository
+    public class PlayerRepository : IDisposable
     {
         private readonly IDictionary<int, Player> _players;
         private readonly PlayerDao _playerDao;
@@ -22,6 +23,14 @@ namespace Couscous.Game.Players
         public bool TryRegisterPlayer(Player player)
         {
             return _players.TryAdd(player.Id, player);
+        }
+
+        public void Dispose()
+        {
+            foreach (var player in _players.Values)
+            {
+                player.Dispose();
+            }
         }
     }
 }

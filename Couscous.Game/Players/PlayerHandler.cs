@@ -1,9 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Couscous.Game.Players
 {
-    public class PlayerHandler
+    public class PlayerHandler : IDisposable
     {
         private readonly PlayerRepository _playerRepository;
 
@@ -20,6 +21,11 @@ namespace Couscous.Game.Players
         public bool TryRegisterPlayer(Player player)
         {
             return _playerRepository.TryRegisterPlayer(player);
+        }
+
+        public void Dispose()
+        {
+            _playerRepository.Dispose();
         }
     }
 }
