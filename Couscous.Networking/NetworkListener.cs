@@ -9,14 +9,12 @@ namespace Couscous.Networking
     public class NetworkListener : IDisposable
     {
         private readonly TcpListener _listener;
-        private readonly IList<NetworkClient> _clients;
-        private readonly ClientPacketProvider _packetProvider;
+        private readonly NetworkHandler _handler;
 
-        public NetworkListener(TcpListener listener, IList<NetworkClient> clients, ClientPacketProvider packetProvider)
+        public NetworkListener(TcpListener listener, NetworkHandler handler)
         {
             _listener = listener;
-            _clients = clients;
-            _packetProvider = packetProvider;
+            _handler = handler;
         }
 
         public void StartListener()
@@ -28,22 +26,12 @@ namespace Couscous.Networking
         {
             while (true)
             {
-                var tcpClient = await _listener.AcceptTcpClientAsync();
-                var networkClient = new NetworkClient(tcpClient, _packetProvider);
-                
-                _clients.Add(networkClient);
-
-                networkClient.StartReceiving();
+                _handler.RegisterClient(await _listener.AcceptTcpClientAsync());
             }
         }
 
         public void Dispose()
         {
-            foreach (var client in _clients)
-            {
-                client.Dispose();
-            }
-            
             _listener.Stop();
         }
     }

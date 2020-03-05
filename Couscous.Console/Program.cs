@@ -48,14 +48,18 @@ namespace Couscous.Console
             };
 
             var packetProvider = new ClientPacketProvider(packets);
-            
-            var networkHandler = new NetworkListener(
-                new TcpListener(IPAddress.Any, int.Parse(configProvider.GetValueFromKey("networking.port"))),
+
+            var networkHandler = new NetworkHandler(
                 new List<NetworkClient>(),
                 packetProvider
             );
+            
+            var networkListener = new NetworkListener(
+                new TcpListener(IPAddress.Any, int.Parse(configProvider.GetValueFromKey("networking.port"))),
+                networkHandler
+            );
 
-            var server = new Server(networkHandler);
+            var server = new Server(networkListener);
             server.Start();
 
             while (true)

@@ -6,6 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Couscous.Config\Couscous.Config.csproj" />
       <ProjectReference Include="..\Couscous.Networking\Couscous.Networking.csproj" />
     </ItemGroup>
 

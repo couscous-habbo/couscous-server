@@ -1,5 +1,4 @@
 using System;
-using Peach.Communication.Encryption;
 
 namespace Couscous.Networking.Packets.Server.Handshake
 {
