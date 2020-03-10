@@ -5,8 +5,6 @@
         private static void Main()
         {
             var dependencyProvider = new DependencyProvider();
-            
-            dependencyProvider.Register();
             dependencyProvider.Load();
 
             while (true)

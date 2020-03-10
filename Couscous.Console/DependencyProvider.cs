@@ -19,13 +19,9 @@ namespace Couscous.Console
         /// <summary>
         /// Register all of the dependencies to the container
         /// </summary>
-        public void Register()
+        public void Load()
         {
-            this.AddSingleton<IConfigProvider, RemoteJsonConfigProvider>();
-
-            var serviceProvider = this.BuildServiceProvider();
-            var configProvider = serviceProvider.GetService<IConfigProvider>();
-            
+            var configProvider = new RemoteJsonConfigProvider();
             configProvider.Load("http://tiny.cc/zo6gkz"); // cba :(
             
             var connectionString = new MySqlConnectionStringBuilder
@@ -39,7 +35,17 @@ namespace Couscous.Console
             }.ToString();
 
             this.AddSingleton<PlayerHandler>();
-            this.AddSingleton(provider => LoadPackets()); // loading packets dictionary
+            
+            this.AddSingleton(provider => new Dictionary<int, IClientPacket> // todo: load these dynamically
+            {
+                { ClientPacketId.SendPolicyFileRequest, new SendPolicyFilePacket() },
+                { ClientPacketId.ReceiveClientVersion, new ReceivedClientVersionPacket() },
+                { ClientPacketId.RequestEncryptionKeys, new RequestEncryptionKeysPacket() },
+                { ClientPacketId.ReceiveUniqueMachineId, new ReceivedUniqueMachineIdPacket() },
+                { ClientPacketId.PerformanceLog, new PerformanceLogPacket() },
+                { ClientPacketId.SecureLogin, new SecureLoginPacket(this.BuildServiceProvider().GetService<PlayerHandler>()) }
+            });
+            
             this.AddSingleton<IDatabaseProvider, DatabaseProvider>(provider => new DatabaseProvider(connectionString));
             this.AddSingleton<PlayerDao>();
             this.AddSingleton<PlayerRepository>();
@@ -49,26 +55,11 @@ namespace Couscous.Console
             this.AddSingleton(provider => new TcpListener(IPAddress.Any, int.Parse(configProvider.GetValueFromKey("networking.port"))));
             this.AddSingleton<NetworkListener>();
             this.AddSingleton<Server>();
-        }
 
-        private Dictionary<int, IClientPacket> LoadPackets()
-        {
-            return new Dictionary<int, IClientPacket>
-            {
-                { ClientPacketId.SendPolicyFileRequest, new SendPolicyFilePacket() },
-                { ClientPacketId.ReceiveClientVersion, new ReceivedClientVersionPacket() },
-                { ClientPacketId.RequestEncryptionKeys, new RequestEncryptionKeysPacket() },
-                { ClientPacketId.ReceiveUniqueMachineId, new ReceivedUniqueMachineIdPacket() },
-                { ClientPacketId.PerformanceLog, new PerformanceLogPacket() },
-                { ClientPacketId.SecureLogin, new SecureLoginPacket(this.BuildServiceProvider().GetService<PlayerHandler>()) }
-            };
-        }
-
-        public void Load()
-        {
             var serviceProvider = this.BuildServiceProvider();
-            
-            serviceProvider.GetService<Server>().Start();
+            var server = serviceProvider.GetService<Server>();
+
+            server.Start();
         }
     }
 }
