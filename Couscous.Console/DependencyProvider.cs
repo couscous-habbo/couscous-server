@@ -38,14 +38,6 @@ namespace Couscous.Console
                 SslMode = MySqlSslMode.None
             }.ToString();
 
-            this.AddSingleton<IDatabaseProvider, DatabaseProvider>(provider => new DatabaseProvider(connectionString));
-            this.AddSingleton(provider => new PlayerDao(serviceProvider.GetService<IDatabaseProvider>()));
-            
-            var playerRepository = new PlayerRepository(serviceProvider.GetService<PlayerDao>());
-
-            this.AddSingleton(provider => new PlayerHandler(playerRepository));
-            this.AddSingleton<GameProvider>();
-            
             var packets = new Dictionary<int, IClientPacket>
             {
                 { ClientPacketId.SendPolicyFileRequest, new SendPolicyFilePacket() },
@@ -55,17 +47,24 @@ namespace Couscous.Console
                 { ClientPacketId.PerformanceLog, new PerformanceLogPacket() },
                 { ClientPacketId.SecureLogin, new SecureLoginPacket(serviceProvider.GetService<PlayerHandler>()) }
             };
-
+            
+            this.AddSingleton<IDatabaseProvider, DatabaseProvider>(provider => new DatabaseProvider(connectionString));
+            this.AddSingleton(provider => new PlayerDao(serviceProvider.GetService<IDatabaseProvider>()));
+            this.AddSingleton<PlayerRepository>();
+            this.AddSingleton<PlayerHandler>();
+            this.AddSingleton<GameProvider>();
             this.AddSingleton(provider => new ClientPacketProvider(packets));
             this.AddSingleton(provider => new NetworkHandler(new List<NetworkClient>(), serviceProvider.GetService<ClientPacketProvider>()));
-            
-            var networkListener = new NetworkListener(
-                new TcpListener(IPAddress.Any, int.Parse(configProvider.GetValueFromKey("networking.port"))),
-                serviceProvider.GetService<NetworkHandler>()
-            );
+            this.AddSingleton(provider => new TcpListener(IPAddress.Any, int.Parse(configProvider.GetValueFromKey("networking.port"))));
+            this.AddSingleton<NetworkListener>();
+            this.AddSingleton<Server>();
+        }
 
-            var server = new Server(networkListener, serviceProvider.GetService<GameProvider>());
-            server.Start();
+        public void Load()
+        {
+            var serviceProvider = this.BuildServiceProvider();
+            
+            serviceProvider.GetService<Server>().Start();
         }
     }
 }
