@@ -2,6 +2,7 @@ namespace Couscous.Networking.Packets.Client
 {
     public struct ClientPacketId
     {
+        public const int SendPolicyFileRequest = 26979;
         public const int ReceiveClientVersion = 4000;
         public const int RequestEncryptionKeys = 1053;
         public const int ReceiveUniqueMachineId = 2490;

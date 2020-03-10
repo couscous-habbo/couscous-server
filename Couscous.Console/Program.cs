@@ -40,6 +40,7 @@ namespace Couscous.Console
             
             var packets = new Dictionary<int, IClientPacket>
             {
+                { ClientPacketId.SendPolicyFileRequest, new SendPolicyFilePacket() },
                 { ClientPacketId.ReceiveClientVersion, new ReceivedClientVersionPacket() },
                 { ClientPacketId.RequestEncryptionKeys, new RequestEncryptionKeysPacket() },
                 { ClientPacketId.ReceiveUniqueMachineId, new ReceivedUniqueMachineIdPacket() },
