@@ -40,9 +40,10 @@ namespace Couscous.Console
 
             this.AddSingleton<IDatabaseProvider, DatabaseProvider>(
                 provider => new DatabaseProvider(connectionString));
+
+            this.AddSingleton(provider => new PlayerDao(serviceProvider.GetService<IDatabaseProvider>()));
             
-            var playerDao = new PlayerDao(serviceProvider.GetService<IDatabaseProvider>());
-            var playerRepository = new PlayerRepository(playerDao);
+            var playerRepository = new PlayerRepository(serviceProvider.GetService<PlayerDao>());
             var playerProvider = new PlayerHandler(playerRepository);
             var gameProvider = new GameProvider(playerProvider);
             
