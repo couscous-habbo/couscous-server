@@ -10,9 +10,9 @@ namespace Couscous.Networking
         private readonly IList<NetworkClient> _clients;
         private readonly ClientPacketProvider _packetProvider;
 
-        public NetworkHandler(IList<NetworkClient> clients, ClientPacketProvider packetProvider)
+        public NetworkHandler(ClientPacketProvider packetProvider)
         {
-            _clients = clients;
+            _clients = new List<NetworkClient>();
             _packetProvider = packetProvider;
         }
 
