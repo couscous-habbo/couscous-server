@@ -56,11 +56,11 @@ namespace Couscous.Console
                 { ClientPacketId.SecureLogin, new SecureLoginPacket(playerProvider) }
             };
 
-            var packetProvider = new ClientPacketProvider(packets);
+            this.AddSingleton(provider => new ClientPacketProvider(packets));
 
             var networkHandler = new NetworkHandler(
                 new List<NetworkClient>(),
-                packetProvider
+                serviceProvider.GetService<ClientPacketProvider>()
             );
             
             var networkListener = new NetworkListener(
