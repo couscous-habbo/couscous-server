@@ -38,9 +38,7 @@ namespace Couscous.Console
                 SslMode = MySqlSslMode.None
             }.ToString();
 
-            this.AddSingleton<IDatabaseProvider, DatabaseProvider>(
-                provider => new DatabaseProvider(connectionString));
-
+            this.AddSingleton<IDatabaseProvider, DatabaseProvider>(provider => new DatabaseProvider(connectionString));
             this.AddSingleton(provider => new PlayerDao(serviceProvider.GetService<IDatabaseProvider>()));
             
             var playerRepository = new PlayerRepository(serviceProvider.GetService<PlayerDao>());
@@ -58,15 +56,11 @@ namespace Couscous.Console
             };
 
             this.AddSingleton(provider => new ClientPacketProvider(packets));
-
-            var networkHandler = new NetworkHandler(
-                new List<NetworkClient>(),
-                serviceProvider.GetService<ClientPacketProvider>()
-            );
+            this.AddSingleton(provider => new NetworkHandler(new List<NetworkClient>(), serviceProvider.GetService<ClientPacketProvider>()));
             
             var networkListener = new NetworkListener(
                 new TcpListener(IPAddress.Any, int.Parse(configProvider.GetValueFromKey("networking.port"))),
-                networkHandler
+                serviceProvider.GetService<NetworkHandler>()
             );
 
             var server = new Server(networkListener, gameProvider);
