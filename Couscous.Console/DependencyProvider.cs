@@ -39,26 +39,29 @@ namespace Couscous.Console
             }.ToString();
 
             this.AddSingleton<PlayerHandler>();
-            
-            var packets = new Dictionary<int, IClientPacket>
+            this.AddSingleton(provider => LoadPackets()); // loading packets dictionary
+            this.AddSingleton<IDatabaseProvider, DatabaseProvider>(provider => new DatabaseProvider(connectionString));
+            this.AddSingleton<PlayerDao>();
+            this.AddSingleton<PlayerRepository>();
+            this.AddSingleton<GameProvider>();
+            this.AddSingleton<ClientPacketProvider>();
+            this.AddSingleton<NetworkHandler>();
+            this.AddSingleton(provider => new TcpListener(IPAddress.Any, int.Parse(configProvider.GetValueFromKey("networking.port"))));
+            this.AddSingleton<NetworkListener>();
+            this.AddSingleton<Server>();
+        }
+
+        private Dictionary<int, IClientPacket> LoadPackets()
+        {
+            return new Dictionary<int, IClientPacket>
             {
                 { ClientPacketId.SendPolicyFileRequest, new SendPolicyFilePacket() },
                 { ClientPacketId.ReceiveClientVersion, new ReceivedClientVersionPacket() },
                 { ClientPacketId.RequestEncryptionKeys, new RequestEncryptionKeysPacket() },
                 { ClientPacketId.ReceiveUniqueMachineId, new ReceivedUniqueMachineIdPacket() },
                 { ClientPacketId.PerformanceLog, new PerformanceLogPacket() },
-                { ClientPacketId.SecureLogin, new SecureLoginPacket(serviceProvider.GetService<PlayerHandler>()) }
+                { ClientPacketId.SecureLogin, new SecureLoginPacket(this.BuildServiceProvider().GetService<PlayerHandler>()) }
             };
-            
-            this.AddSingleton<IDatabaseProvider, DatabaseProvider>(provider => new DatabaseProvider(connectionString));
-            this.AddSingleton(provider => new PlayerDao(serviceProvider.GetService<IDatabaseProvider>()));
-            this.AddSingleton<PlayerRepository>();
-            this.AddSingleton<GameProvider>();
-            this.AddSingleton(provider => new ClientPacketProvider(packets));
-            this.AddSingleton<NetworkHandler>();
-            this.AddSingleton(provider => new TcpListener(IPAddress.Any, int.Parse(configProvider.GetValueFromKey("networking.port"))));
-            this.AddSingleton<NetworkListener>();
-            this.AddSingleton<Server>();
         }
 
         public void Load()
