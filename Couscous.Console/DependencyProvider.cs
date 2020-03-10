@@ -14,7 +14,7 @@ using MySql.Data.MySqlClient;
 
 namespace Couscous.Console
 {
-    public class DependencyProvider : ServiceCollection, IServiceCollection
+    public class DependencyProvider : ServiceCollection
     {
         /// <summary>
         /// Register all of the dependencies to the container
