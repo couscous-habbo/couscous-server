@@ -3,7 +3,7 @@ using MySql.Data.MySqlClient;
 
 namespace Couscous.Database
 {
-    public class DatabaseProvider
+    public class DatabaseProvider : IDatabaseProvider
     {
         private readonly string _connectionString;
         
