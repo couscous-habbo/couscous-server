@@ -1,4 +1,5 @@
 using System;
+using Couscous.Logging.Implementations;
 
 namespace Couscous.Logging
 {
@@ -6,7 +7,7 @@ namespace Couscous.Logging
     {
         public static ILogger GetLogger(Type type)
         {
-            return null;
+            return new HybridLogger(new ConsoleLogger(), new FileLogger(type));
         }
     }
 }

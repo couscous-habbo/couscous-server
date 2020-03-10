@@ -2,7 +2,7 @@ using System;
 
 namespace Couscous.Logging.Implementations
 {
-    public class HybridLogger
+    public class HybridLogger : ILogger
     {
         private readonly ILogger _consoleLogger;
         private readonly IPersistLogger _persistLogger;
