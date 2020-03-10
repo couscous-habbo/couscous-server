@@ -5,7 +5,7 @@ namespace Couscous.Game.Players
 {
     public class PlayerDao : DatabaseAccessObject
     {
-        public PlayerDao(DatabaseProvider databaseProvider) : base(databaseProvider)
+        public PlayerDao(IDatabaseProvider databaseProvider) : base(databaseProvider)
         {
         }
 

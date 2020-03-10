@@ -37,10 +37,11 @@ namespace Couscous.Console
                 UserID = configProvider.GetValueFromKey("database.username"),
                 SslMode = MySqlSslMode.None
             }.ToString();
+
+            this.AddSingleton<IDatabaseProvider, DatabaseProvider>(
+                provider => new DatabaseProvider(connectionString));
             
-            var databaseProvider = new DatabaseProvider(connectionString);
-            
-            var playerDao = new PlayerDao(databaseProvider);
+            var playerDao = new PlayerDao(serviceProvider.GetService<IDatabaseProvider>());
             var playerRepository = new PlayerRepository(playerDao);
             var playerProvider = new PlayerHandler(playerRepository);
             var gameProvider = new GameProvider(playerProvider);
