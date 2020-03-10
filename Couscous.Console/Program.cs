@@ -17,6 +17,9 @@ namespace Couscous.Console
     {
         private static void Main()
         {
+            var dependencyProvider = new DependencyProvider();
+            dependencyProvider.Register();
+            
             var configProvider = new ConfigProvider();
             
             configProvider.Load("http://tiny.cc/zo6gkz"); // cba :(
