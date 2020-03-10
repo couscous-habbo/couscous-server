@@ -42,8 +42,9 @@ namespace Couscous.Console
             this.AddSingleton(provider => new PlayerDao(serviceProvider.GetService<IDatabaseProvider>()));
             
             var playerRepository = new PlayerRepository(serviceProvider.GetService<PlayerDao>());
-            var playerProvider = new PlayerHandler(playerRepository);
-            var gameProvider = new GameProvider(playerProvider);
+
+            this.AddSingleton(provider => new PlayerHandler(playerRepository));
+            this.AddSingleton<GameProvider>();
             
             var packets = new Dictionary<int, IClientPacket>
             {
@@ -52,7 +53,7 @@ namespace Couscous.Console
                 { ClientPacketId.RequestEncryptionKeys, new RequestEncryptionKeysPacket() },
                 { ClientPacketId.ReceiveUniqueMachineId, new ReceivedUniqueMachineIdPacket() },
                 { ClientPacketId.PerformanceLog, new PerformanceLogPacket() },
-                { ClientPacketId.SecureLogin, new SecureLoginPacket(playerProvider) }
+                { ClientPacketId.SecureLogin, new SecureLoginPacket(serviceProvider.GetService<PlayerHandler>()) }
             };
 
             this.AddSingleton(provider => new ClientPacketProvider(packets));
