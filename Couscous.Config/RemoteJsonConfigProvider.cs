@@ -5,7 +5,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Couscous.Config
 {
-    public class ConfigProvider
+    public class RemoteJsonConfigProvider : IConfigProvider
     {
         private IDictionary<string, string> _data;
         

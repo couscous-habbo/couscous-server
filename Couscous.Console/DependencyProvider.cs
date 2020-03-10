@@ -9,6 +9,7 @@ namespace Couscous.Console
         /// </summary>
         public void Register()
         {
+            
         }
     }
 }

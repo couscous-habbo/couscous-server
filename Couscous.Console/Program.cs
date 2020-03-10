@@ -20,7 +20,7 @@ namespace Couscous.Console
             var dependencyProvider = new DependencyProvider();
             dependencyProvider.Register();
             
-            var configProvider = new ConfigProvider();
+            var configProvider = new RemoteJsonConfigProvider();
             
             configProvider.Load("http://tiny.cc/zo6gkz"); // cba :(
             
