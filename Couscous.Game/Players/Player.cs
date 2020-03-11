@@ -5,7 +5,7 @@ namespace Couscous.Game.Players
 {
     public partial class Player : PlayerData, IDisposable
     {
-        public Player(DataRow playerData) : base(playerData)
+        public Player(int id, string username, int homeRoom) : base(id, username, homeRoom)
         {
         }
 

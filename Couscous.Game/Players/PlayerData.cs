@@ -7,11 +7,13 @@ namespace Couscous.Game.Players
     {
         public readonly int Id;
         public readonly string Username;
+        public readonly int HomeRoom;
 
-        protected PlayerData(DataRow playerData)
+        protected PlayerData(int id, string username, int homeRoom)
         {
-            Id = Convert.ToInt32(playerData["id"]);
-            Username = Convert.ToString(playerData["username"]);
+            Id = id;
+            Username = username;
+            HomeRoom = homeRoom;
         }
 
         public void Dispose()

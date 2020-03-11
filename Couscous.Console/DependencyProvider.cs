@@ -50,6 +50,7 @@ namespace Couscous.Console
             });
             
             this.AddSingleton<IDatabaseProvider, DatabaseProvider>(provider => new DatabaseProvider(connectionString, provider.GetService<LogFactory>()));
+            this.AddSingleton<PlayerFactory>();
             this.AddSingleton<PlayerDao>();
             this.AddSingleton<PlayerRepository>();
             this.AddSingleton<GameProvider>();

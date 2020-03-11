@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Couscous.Database;
 
@@ -5,8 +6,11 @@ namespace Couscous.Game.Players
 {
     public class PlayerDao : DatabaseAccessObject
     {
-        public PlayerDao(IDatabaseProvider databaseProvider) : base(databaseProvider)
+        private readonly PlayerFactory _playerFactory;
+
+        public PlayerDao(IDatabaseProvider databaseProvider, PlayerFactory playerFactory) : base(databaseProvider)
         {
+            _playerFactory = playerFactory;
         }
 
         public async Task<Player> GetPlayerBySsoTicketAsync(string ssoTicket)
@@ -22,7 +26,7 @@ namespace Couscous.Game.Players
 
                 if (playerRow != null)
                 {
-                    player = new Player(await dbConnection.ExecuteRowAsync());
+                    player = _playerFactory.GetPlayerFromDataRow(await dbConnection.ExecuteRowAsync());
                 }
             }
             
