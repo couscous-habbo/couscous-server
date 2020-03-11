@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using Couscous.Networking.Packets.Server.Handshake;
 

@@ -5,16 +5,16 @@ namespace Couscous.Game
 {
     public class GameProvider : IDisposable
     {
-        public PlayerHandler PlayerHandler;
+        private readonly PlayerHandler _playerHandler;
 
         public GameProvider(PlayerHandler playerHandler)
         {
-            PlayerHandler = playerHandler;
+            _playerHandler = playerHandler;
         }
 
         public void Dispose()
         {
-            PlayerHandler.Dispose();
+            _playerHandler.Dispose();
         }
     }
 }

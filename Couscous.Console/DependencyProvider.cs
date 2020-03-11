@@ -6,7 +6,6 @@ using Couscous.Database;
 using Couscous.Game;
 using Couscous.Game.Players;
 using Couscous.Logging;
-using Couscous.Logging.Implementations;
 using Couscous.Networking;
 using Couscous.Networking.Packets.Client;
 using Couscous.Networking.Packets.Client.Handshake;
@@ -23,7 +22,7 @@ namespace Couscous.Console
         /// </summary>
         public void Load()
         {
-            var configProvider = new RemoteJsonConfigProvider();
+            IConfigProvider configProvider = new RemoteJsonConfigProvider();
             configProvider.Load("http://tiny.cc/zo6gkz"); // cba :(
             
             var connectionString = new MySqlConnectionStringBuilder

@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using Couscous.Game.Players;
-using Couscous.Networking.Packets.Server.Handshake;
 
 namespace Couscous.Networking.Packets.Client.Handshake
 {

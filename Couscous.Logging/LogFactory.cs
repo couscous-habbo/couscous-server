@@ -1,4 +1,3 @@
-using System;
 using Couscous.Logging.Implementations;
 
 namespace Couscous.Logging

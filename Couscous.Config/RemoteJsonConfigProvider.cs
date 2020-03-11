@@ -11,19 +11,17 @@ namespace Couscous.Config
         
         public void Load(string url)
         {
-            using (var webClient = new WebClient())
+            using var webClient = new WebClient();
+            var data = webClient.DownloadString(url);
+                
+            var jsonObject= JObject.Parse(data);
+            var jTokens = jsonObject.Descendants().Where(p => !p.Any());
+                
+            _data = jTokens.Aggregate(new Dictionary<string, string>(), (properties, jToken) =>
             {
-                var data = webClient.DownloadString(url);
-                
-                var jsonObject= JObject.Parse(data);
-                var jTokens = jsonObject.Descendants().Where(p => !p.Any());
-                
-                _data = jTokens.Aggregate(new Dictionary<string, string>(), (properties, jToken) =>
-                {
-                    properties.Add(jToken.Path, jToken.ToString());
-                    return properties;
-                });
-            }
+                properties.Add(jToken.Path, jToken.ToString());
+                return properties;
+            });
         }
 
         public string GetValueFromKey(string key)
