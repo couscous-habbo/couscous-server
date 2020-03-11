@@ -1,6 +1,7 @@
 using System;
 using System.Buffers;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Couscous.Networking.Packets.Server
@@ -30,6 +31,16 @@ namespace Couscous.Networking.Packets.Server
         private void WriteShort(short length)
         {
             _packet.Write(BitConverter.GetBytes(length));
+        }
+
+        protected void WriteInteger(int data)
+        {
+            WriteBytesForInteger(BitConverter.GetBytes(data));
+        }
+
+        private void WriteBytesForInteger(byte[] data)
+        {
+            _packet.Write(data.Reverse().ToArray());
         }
 
         public byte[] GetBytes()
