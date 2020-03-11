@@ -40,7 +40,7 @@ namespace Couscous.Networking.Packets.Client.Handshake
             // TODO: Check if the user is banned
 
             await client.WriteToStreamAsync(new SecureLoginOkPacket().GetBytes());
-            await client.WriteToStreamAsync(new SendUserHomeRoomPacket(0, 0).GetBytes());
+            await client.WriteToStreamAsync(new UserHomeRoomPacket(0, 0).GetBytes());
         }
     }
 }
