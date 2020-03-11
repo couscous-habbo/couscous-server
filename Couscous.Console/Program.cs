@@ -6,16 +6,17 @@ namespace Couscous.Console
 {
     internal static class Program
     {
+        private static DependencyProvider _diProvider;
         private static ILogger _logger;
         
         private static void Main()
         {
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
-            var dependencyProvider = new DependencyProvider();
-            dependencyProvider.Load();
+            _diProvider = new DependencyProvider();
+            _diProvider.Load();
 
-            var serviceProvider = dependencyProvider.BuildServiceProvider();
+            var serviceProvider = _diProvider.BuildServiceProvider();
             
             _logger = serviceProvider.GetRequiredService<LogFactory>().GetLogger();
 
