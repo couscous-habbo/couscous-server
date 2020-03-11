@@ -5,7 +5,7 @@ namespace Couscous.Logging
 {
     public class LogFactory
     {
-        public static ILogger GetLoggerForType()
+        public ILogger GetLogger()
         {
             return new HybridLogger(
                 new ConsoleLogger(), 

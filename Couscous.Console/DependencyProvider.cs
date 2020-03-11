@@ -58,11 +58,6 @@ namespace Couscous.Console
             this.AddSingleton(provider => new TcpListener(IPAddress.Any, int.Parse(configProvider.GetValueFromKey("networking.port"))));
             this.AddSingleton<NetworkListener>();
             this.AddSingleton<Server>();
-
-            var serviceProvider = this.BuildServiceProvider();
-            var server = serviceProvider.GetService<Server>();
-
-            server.Start();
         }
     }
 }
