@@ -3,7 +3,7 @@ using System.Data;
 
 namespace Couscous.Game.Players
 {
-    public partial class Player : PlayerData, IDisposable
+    public class Player : PlayerData, IDisposable
     {
         public Player(int id, string username, int homeRoom) : base(id, username, homeRoom)
         {
