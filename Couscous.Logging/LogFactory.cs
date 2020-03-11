@@ -3,9 +3,9 @@ using Couscous.Logging.Implementations;
 
 namespace Couscous.Logging
 {
-    public static class LogFactory
+    public class LogFactory
     {
-        public static ILogger GetLogger(Type type)
+        public ILogger GetLoggerForType(Type type)
         {
             return new HybridLogger(new ConsoleLogger(), new FileLogger(type));
         }

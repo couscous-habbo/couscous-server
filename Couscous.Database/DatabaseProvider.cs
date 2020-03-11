@@ -6,10 +6,12 @@ namespace Couscous.Database
     public class DatabaseProvider : IDatabaseProvider
     {
         private readonly string _connectionString;
+        private readonly LogFactory _logFactory;
         
-        public DatabaseProvider(string connectionString)
+        public DatabaseProvider(string connectionString, LogFactory logFactory)
         {
             _connectionString = connectionString;
+            _logFactory = logFactory;
         }
         
         public DatabaseConnection GetConnection()
@@ -17,7 +19,9 @@ namespace Couscous.Database
             var connection = new MySqlConnection(_connectionString);
             var command = connection.CreateCommand();
             
-            return new DatabaseConnection(LogFactory.GetLogger(typeof(DatabaseConnection)), connection, command);
+            return new DatabaseConnection(
+                _logFactory.GetLoggerForType(typeof(DatabaseConnection)
+            ), connection, command);
         }
 
         public bool IsConnected()

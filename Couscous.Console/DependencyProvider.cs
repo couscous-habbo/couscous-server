@@ -5,6 +5,7 @@ using Couscous.Config;
 using Couscous.Database;
 using Couscous.Game;
 using Couscous.Game.Players;
+using Couscous.Logging;
 using Couscous.Networking;
 using Couscous.Networking.Packets.Client;
 using Couscous.Networking.Packets.Client.Handshake;
@@ -34,6 +35,8 @@ namespace Couscous.Console
                 SslMode = MySqlSslMode.None
             }.ToString();
 
+            this.AddSingleton<LogFactory>();
+            
             this.AddSingleton<PlayerHandler>();
             
             this.AddSingleton(provider => new Dictionary<int, IClientPacket> // todo: load these dynamically
@@ -46,7 +49,7 @@ namespace Couscous.Console
                 { ClientPacketId.SecureLogin, new SecureLoginPacket(this.BuildServiceProvider().GetService<PlayerHandler>()) }
             });
             
-            this.AddSingleton<IDatabaseProvider, DatabaseProvider>(provider => new DatabaseProvider(connectionString));
+            this.AddSingleton<IDatabaseProvider, DatabaseProvider>(provider => new DatabaseProvider(connectionString, provider.GetService<LogFactory>()));
             this.AddSingleton<PlayerDao>();
             this.AddSingleton<PlayerRepository>();
             this.AddSingleton<GameProvider>();
