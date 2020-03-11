@@ -6,6 +6,7 @@ using Couscous.Database;
 using Couscous.Game;
 using Couscous.Game.Players;
 using Couscous.Logging;
+using Couscous.Logging.Implementations;
 using Couscous.Networking;
 using Couscous.Networking.Packets.Client;
 using Couscous.Networking.Packets.Client.Handshake;
@@ -36,7 +37,7 @@ namespace Couscous.Console
             }.ToString();
 
             this.AddSingleton<LogFactory>();
-            
+            this.AddTransient(provider => provider.GetService<LogFactory>().GetLogger());
             this.AddSingleton<PlayerHandler>();
             
             this.AddSingleton(provider => new Dictionary<int, IClientPacket> // todo: load these dynamically
