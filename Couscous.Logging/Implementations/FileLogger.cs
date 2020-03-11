@@ -1,18 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Couscous.Logging.Implementations
 {
     public class FileLogger : IPersistLogger
     {
-        private readonly Type _owner;
-            
-        public FileLogger(Type owner)
-        {
-            _owner = owner;
-        }
-            
-        private readonly Dictionary<LogLevel, string> _fileNameForLogType = new Dictionary<LogLevel, string>() {
+        private readonly Dictionary<LogLevel, string> _fileNameForLogType = new Dictionary<LogLevel, string> {
             {LogLevel.Trace , "trace.log"},
             {LogLevel.Success , "success.log"},
             {LogLevel.Warning ,    "warn.log"},
@@ -22,7 +16,7 @@ namespace Couscous.Logging.Implementations
 
         public void Persist(string e, LogLevel level)
         {
-            // TODO: persist? 
+            File.WriteAllText(_fileNameForLogType[level], e + Environment.NewLine);
         }
 
         public void Persist(Exception e)

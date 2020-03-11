@@ -19,9 +19,7 @@ namespace Couscous.Database
             var connection = new MySqlConnection(_connectionString);
             var command = connection.CreateCommand();
             
-            return new DatabaseConnection(
-                _logFactory.GetLoggerForType(typeof(DatabaseConnection)
-            ), connection, command);
+            return new DatabaseConnection(LogFactory.GetLoggerForType(), connection, command);
         }
 
         public bool IsConnected()
