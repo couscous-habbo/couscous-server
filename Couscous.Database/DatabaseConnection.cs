@@ -40,7 +40,7 @@ namespace Couscous.Database
             }
         }
 
-        public async Task<DataTable> ExecuteTable()
+        public async Task<DataTable> ExecuteTableAsync()
         {
             var dataTable = new DataTable();
             
