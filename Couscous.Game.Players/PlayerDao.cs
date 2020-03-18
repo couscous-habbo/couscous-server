@@ -17,7 +17,7 @@ namespace Couscous.Game.Players
         {
             Player player = null;
             
-            using (var dbConnection = GetConnection())
+            await using (var dbConnection = GetConnection())
             {
                 dbConnection.SetQuery("SELECT users.id, user_game_data.home_room FROM users LEFT JOIN user_game_data ON users.id = user_game_data.user_id WHERE users.auth_ticket = @authTicket");
                 dbConnection.AddParameter("authTicket", ssoTicket);

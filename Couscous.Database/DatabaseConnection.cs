@@ -6,7 +6,7 @@ using MySql.Data.MySqlClient;
 
 namespace Couscous.Database
 {
-    public class DatabaseConnection : IDisposable
+    public class DatabaseConnection : IAsyncDisposable
     {
         private readonly ILogger _logger;
         private readonly MySqlConnection _connection;
@@ -88,15 +88,15 @@ namespace Couscous.Database
             _command.Parameters.AddWithValue(name, value);
         }
 
-        public void Dispose()
+        public async ValueTask DisposeAsync()
         {
             if (_connection.State != ConnectionState.Closed)
             {
                 _connection.Close();
             }
-            
-            _connection.Dispose();
-            _command.Dispose();
+
+            await _connection.DisposeAsync();
+            await _command.DisposeAsync();
         }
     }
 }
