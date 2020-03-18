@@ -1,6 +1,6 @@
 namespace Couscous.Database
 {
-    public abstract  class DatabaseAccessObject
+    public abstract class DatabaseAccessObject
     {
         private readonly IDatabaseProvider _databaseProvider;
         

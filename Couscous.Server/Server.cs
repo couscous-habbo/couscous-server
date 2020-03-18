@@ -13,7 +13,11 @@ namespace Couscous.Console
         private readonly NetworkListener _networkListener;
         private readonly GameProvider _gameProvider;
         
-        public Server(ILogger logger, IDatabaseProvider databaseProvider, NetworkListener networkListener, GameProvider gameProvider)
+        public Server(
+            ILogger logger, 
+            IDatabaseProvider databaseProvider, 
+            NetworkListener networkListener, 
+            GameProvider gameProvider)
         {
             _logger = logger;
             _databaseProvider = databaseProvider;

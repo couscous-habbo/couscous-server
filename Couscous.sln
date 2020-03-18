@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Couscous.Console", "Couscous.Console\Couscous.Console.csproj", "{58AD4A9A-10FC-47A7-84F1-D191DF470663}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Couscous.Server", "Couscous.Server\Couscous.Server.csproj", "{58AD4A9A-10FC-47A7-84F1-D191DF470663}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Couscous.Networking", "Couscous.Networking\Couscous.Networking.csproj", "{B160EFE2-B51C-4FE8-8A02-27447F11E700}"
 EndProject
