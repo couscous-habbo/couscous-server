@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using Couscous.Database;
 using Couscous.Game;
 using Couscous.Logging;
@@ -12,6 +13,8 @@ namespace Couscous.Console
         private readonly IDatabaseProvider _databaseProvider;
         private readonly NetworkListener _networkListener;
         private readonly GameProvider _gameProvider;
+        
+        public bool Started { get; set; }
         
         public Server(
             ILogger logger, 
@@ -37,6 +40,14 @@ namespace Couscous.Console
             _networkListener.ListenAsync();
             
             _logger.Success("Server has finished starting.");
+
+            Started = true;
+            
+            while (true)
+            {
+                System.Console.ReadLine(); 
+                Thread.Sleep(100);
+            }
         }
 
         private void ExitAfterKey()

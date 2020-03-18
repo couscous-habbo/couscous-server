@@ -14,6 +14,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Couscous.Config", "Couscous
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Couscous.Game.Players", "Couscous.Game.Players\Couscous.Game.Players.csproj", "{32460C55-FA83-41E1-928B-8C619E87148D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Couscous", "Couscous\Couscous.csproj", "{FC6268E0-5E70-404B-B642-420FEB7442BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Couscous.Tests", "Couscous.Tests\Couscous.Tests.csproj", "{AB4681A4-C4E6-4E4B-B9CD-9E5ED32EA34B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,5 +52,13 @@ Global
 		{32460C55-FA83-41E1-928B-8C619E87148D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32460C55-FA83-41E1-928B-8C619E87148D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32460C55-FA83-41E1-928B-8C619E87148D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC6268E0-5E70-404B-B642-420FEB7442BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC6268E0-5E70-404B-B642-420FEB7442BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC6268E0-5E70-404B-B642-420FEB7442BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC6268E0-5E70-404B-B642-420FEB7442BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB4681A4-C4E6-4E4B-B9CD-9E5ED32EA34B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB4681A4-C4E6-4E4B-B9CD-9E5ED32EA34B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB4681A4-C4E6-4E4B-B9CD-9E5ED32EA34B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB4681A4-C4E6-4E4B-B9CD-9E5ED32EA34B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
