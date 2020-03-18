@@ -6,6 +6,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Couscous.Database\Couscous.Database.csproj" />
+      <ProjectReference Include="..\Couscous.Game.Players\Couscous.Game.Players.csproj" />
     </ItemGroup>
 
 </Project>
