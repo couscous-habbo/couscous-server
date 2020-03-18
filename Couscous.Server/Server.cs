@@ -14,8 +14,6 @@ namespace Couscous.Console
         private readonly NetworkListener _networkListener;
         private readonly GameProvider _gameProvider;
         
-        public bool Started { get; set; }
-        
         public Server(
             ILogger logger, 
             IDatabaseProvider databaseProvider, 
@@ -40,8 +38,6 @@ namespace Couscous.Console
             _networkListener.ListenAsync();
             
             _logger.Success("Server has finished starting.");
-
-            Started = true;
             
             while (true)
             {
